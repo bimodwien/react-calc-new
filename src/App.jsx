@@ -9,37 +9,28 @@ function App() {
   const [result, setResult] = useState(0);
   const actionToCalculate = useRef(null);
 
-  const [liveHistory, setLiveHistory] = useState("");
   const [listHistory, setListHistory] = useState([]);
   const [lastOperation, setLastOperation] = useState("");
 
   function angka(angka) {
-    console.log("angka dipanggil dalam function angka: ", angka);
     setInputNumber(inputNumber + angka);
   }
 
   function handleAction(action) {
-    console.log("handleAction dipanggil dengan:", action);
     if (actionToCalculate.current !== null && inputNumber !== "") {
       calculate();
     } else if (inputNumber !== "") {
       setResult(inputNumber);
       setLastOperation(inputNumber);
     }
-
     if (action === "=") {
       const lastAction = actionToCalculate.current;
       actionToCalculate.current = null;
-      setLiveHistory(`${result} ${lastAction} ${inputNumber}`);
       setInputNumber("");
     } else {
       actionToCalculate.current = action;
       setInputNumber("");
     }
-  }
-
-  function liveCurrentHistory() {
-    setLiveHistory(`${result} ${actionToCalculate.current} ${inputNumber}`);
   }
 
   function calculate() {
@@ -62,7 +53,6 @@ function App() {
       calculateResult = numResult / numInput;
       operationString = `${numResult} / ${numInput}`;
     }
-    liveCurrentHistory();
     setLastOperation(operationString);
     setResult(calculateResult);
     setListHistory([
@@ -80,7 +70,6 @@ function App() {
     actionToCalculate.current = null;
     setInputNumber("");
     setResult(0);
-    setLiveHistory("");
     setLastOperation("");
   }
 
