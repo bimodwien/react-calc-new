@@ -100,14 +100,13 @@ function App() {
 
   return (
     <>
-      <div className="flex flex-col lg:flex-row lg:justify-center lg:items-center overflow-hidden h-screen bg-[#FAF9F6]">
-        <div className="flex flex-col bg-[#252525] text-[#FAF9F6] w-full lg:w-2/6 h-full lg:h-[750px] lg:rounded-l-lg">
+      <div className="flex justify-center items-center min-h-screen bg-[#FAF9F6]">
+        <div className="flex flex-col bg-[#252525] text-[#FAF9F6] w-2/6 h-[750px] rounded-l-lg">
           <Result
             inputNumber={inputNumber}
             result={result}
             currentAction={actionToCalculate.current}
             lastOperation={lastOperation}
-            className="flex-initial"
           />
           <ContextAction.Provider
             value={{
@@ -118,10 +117,10 @@ function App() {
               onHandlePlusMinus: handlePlusMinus,
             }}
           >
-            <Action className="flex-1" />
+            <Action />
           </ContextAction.Provider>
         </div>
-        <div className="bg-[#252525] text-[#FAF9F6] border-l-2 border-[#FAF9F6] w-full lg:w-1/6 h-screen lg:h-[750px] lg:rounded-r-lg lg:block hidden">
+        <div className="bg-[#252525] text-[#FAF9F6] border-l-2 border-[#FAF9F6] w-1/6 h-[750px] rounded-r-lg">
           <History
             listHistory={listHistory}
             handleClickHistory={handleClickHistory}
