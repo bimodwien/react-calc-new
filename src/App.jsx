@@ -24,7 +24,6 @@ function App() {
       setLastOperation(inputNumber);
     }
     if (action === "=") {
-      const lastAction = actionToCalculate.current;
       actionToCalculate.current = null;
       setInputNumber("");
     } else {
