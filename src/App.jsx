@@ -107,7 +107,7 @@ function App() {
             result={result}
             currentAction={actionToCalculate.current}
             lastOperation={lastOperation}
-            className="flex"
+            className="flex-initial"
           />
           <ContextAction.Provider
             value={{
