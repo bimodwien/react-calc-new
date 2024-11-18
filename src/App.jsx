@@ -73,15 +73,29 @@ function App() {
   }
 
   function handlePercent() {
-    setInputNumber((inputNumber / 100).toString());
+    if (inputNumber !== "") {
+      setInputNumber((inputNumber / 100).toString());
+    } else {
+      setResult((result / 100).toString());
+      setLastOperation(`${result} %`);
+    }
   }
 
   function handlePlusMinus() {
-    setInputNumber((inputNumber * -1).toString());
+    if (inputNumber !== "") {
+      setInputNumber((inputNumber * -1).toString());
+    } else {
+      setResult((result * -1).toString());
+      setLastOperation(`${result} +/-`);
+    }
   }
 
   function handleClickHistory(currentHistory) {
-    setInputNumber(currentHistory.hasil.toString());
+    setResult(currentHistory.hasil);
+    const operationString = `${currentHistory.inputPertama} ${currentHistory.inputKalkulasi} ${currentHistory.inputKedua}`;
+    setLastOperation(operationString);
+    setInputNumber("");
+    actionToCalculate.current = null;
   }
 
   return (
