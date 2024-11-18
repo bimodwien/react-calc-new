@@ -1,6 +1,12 @@
 import React from "react";
 
-const Result = ({ inputNumber, result, currentAction, lastOperation }) => {
+const Result = ({
+  inputNumber,
+  result,
+  currentAction,
+  lastOperation,
+  className,
+}) => {
   let operationString = "";
   if (lastOperation && currentAction === null && inputNumber === "") {
     operationString = lastOperation + " =";
@@ -15,7 +21,7 @@ const Result = ({ inputNumber, result, currentAction, lastOperation }) => {
   }
   return (
     <>
-      <div className="p-2">
+      <div className={`p-2 ${className}`}>
         <h1 className="text-3xl font-semibold">Calculator</h1>
       </div>
       <div className="h-[480px] border-b-2 border-[#FAF9F6] flex flex-col justify-end items-end p-2">

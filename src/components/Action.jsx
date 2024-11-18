@@ -1,7 +1,7 @@
 import React from "react";
 import { useAction } from "../context/ActionContext";
 
-const Action = () => {
+const Action = ({ className }) => {
   const {
     setAngka: angka,
     onHandleAction: handleAction,
@@ -11,7 +11,7 @@ const Action = () => {
   } = useAction();
   return (
     <>
-      <div className="grid grid-cols-4 h-full">
+      <div className={`grid grid-cols-4 h-full ${className}`}>
         <button
           className="border border-[#FAF9F6] flex justify-center items-center hover:bg-[#212A37]"
           onClick={handleClear}
