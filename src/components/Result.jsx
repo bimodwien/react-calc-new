@@ -1,8 +1,10 @@
 import React from "react";
 
-const Result = ({ inputNumber, result, currentAction }) => {
+const Result = ({ inputNumber, result, currentAction, lastOperation }) => {
   let operationString = "";
-  if (result && currentAction && inputNumber) {
+  if (lastOperation && currentAction === null && inputNumber === "") {
+    operationString = lastOperation + " =";
+  } else if (result && currentAction && inputNumber) {
     operationString = `${result} ${currentAction} ${inputNumber}`;
   } else if (result && currentAction) {
     operationString = `${result} ${currentAction}`;

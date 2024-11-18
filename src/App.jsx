@@ -11,6 +11,7 @@ function App() {
 
   const [liveHistory, setLiveHistory] = useState("");
   const [listHistory, setListHistory] = useState([]);
+  const [lastOperation, setLastOperation] = useState("");
 
   function angka(angka) {
     console.log("angka dipanggil dalam function angka: ", angka);
@@ -23,6 +24,7 @@ function App() {
       calculate();
     } else if (inputNumber !== "") {
       setResult(inputNumber);
+      setLastOperation(inputNumber);
     }
 
     if (action === "=") {
@@ -43,16 +45,25 @@ function App() {
   function calculate() {
     if (inputNumber === "") return;
     let calculateResult = 0;
+    let numResult = Number(result);
+    let numInput = Number(inputNumber);
+    let operationString = "";
+
     if (actionToCalculate.current === "+") {
-      calculateResult = Number(result) + Number(inputNumber);
+      calculateResult = numResult + numInput;
+      operationString = `${numResult} + ${numInput}`;
     } else if (actionToCalculate.current === "-") {
-      calculateResult = Number(result) - Number(inputNumber);
+      calculateResult = numResult - numInput;
+      operationString = `${numResult} - ${numInput}`;
     } else if (actionToCalculate.current === "*") {
-      calculateResult = Number(result) * Number(inputNumber);
+      calculateResult = numResult * numInput;
+      operationString = `${numResult} * ${numInput}`;
     } else if (actionToCalculate.current === "/") {
-      calculateResult = Number(result) / Number(inputNumber);
+      calculateResult = numResult / numInput;
+      operationString = `${numResult} / ${numInput}`;
     }
     liveCurrentHistory();
+    setLastOperation(operationString);
     setResult(calculateResult);
     setListHistory([
       ...listHistory,
@@ -70,6 +81,7 @@ function App() {
     setInputNumber("");
     setResult(0);
     setLiveHistory("");
+    setLastOperation("");
   }
 
   function handlePercent() {
@@ -89,10 +101,10 @@ function App() {
       <div className="flex justify-center items-center min-h-screen bg-[#FAF9F6]">
         <div className="flex flex-col bg-[#252525] text-[#FAF9F6] w-2/6 h-[750px] rounded-l-lg">
           <Result
-            currentHistory={liveHistory}
             inputNumber={inputNumber}
             result={result}
             currentAction={actionToCalculate.current}
+            lastOperation={lastOperation}
           />
           <ContextAction.Provider
             value={{
