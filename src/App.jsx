@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import Result from "./components/Result";
 import Action from "./components/Action";
 import History from "./components/History";
@@ -12,8 +12,8 @@ function App() {
   const [listHistory, setListHistory] = useState([]);
   const [lastOperation, setLastOperation] = useState("");
 
-  function angka(angka) {
-    setInputNumber(inputNumber + angka);
+  function angka(angkaInput) {
+    setInputNumber((prevInput) => prevInput + angkaInput);
   }
 
   function handleAction(action) {
@@ -90,6 +90,12 @@ function App() {
     }
   }
 
+  function handleBackspace() {
+    if (inputNumber !== "") {
+      setInputNumber(inputNumber.slice(0, -1));
+    }
+  }
+
   function handleClickHistory(currentHistory) {
     setResult(currentHistory.hasil);
     const operationString = `${currentHistory.inputPertama} ${currentHistory.inputKalkulasi} ${currentHistory.inputKedua}`;
@@ -97,6 +103,38 @@ function App() {
     setInputNumber("");
     actionToCalculate.current = null;
   }
+
+  useEffect(() => {
+    function handleKeyDown(event) {
+      const { key } = event;
+      if ((key >= "0" && key <= "9") || key === ".") {
+        event.preventDefault();
+        angka(key);
+      } else if (key === "+" || key === "-" || key === "*" || key === "/") {
+        event.preventDefault();
+        handleAction(key);
+      } else if (key === "Enter" || key === "=") {
+        event.preventDefault();
+        handleAction("=");
+      } else if (key === "Backspace") {
+        event.preventDefault();
+        handleBackspace();
+      } else if (key === "Escape") {
+        event.preventDefault();
+        handleClear();
+      } else if (key === "%") {
+        event.preventDefault();
+        handlePercent();
+      } else if (key === "p") {
+        event.preventDefault();
+        handlePlusMinus();
+      }
+    }
+    document.addEventListener("keydown", handleKeyDown);
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [inputNumber, result]);
 
   return (
     <>
